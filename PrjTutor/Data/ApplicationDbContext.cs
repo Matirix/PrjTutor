@@ -11,5 +11,6 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<PrjTutor.Student> Student { get; set; } = default!;
+    public DbSet<PrjTutor.Assignment> Assignment { get; set; } = default!;
 }
 
