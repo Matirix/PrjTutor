@@ -17,6 +17,7 @@ namespace PrjTutor.Controllers
         public AssignmentController(ApplicationDbContext context)
         {
             _context = context;
+            
         }
 
         // GET: Assignment
@@ -48,7 +49,7 @@ namespace PrjTutor.Controllers
         // GET: Assignment/Create
         public IActionResult Create()
         {
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId");
+            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name");
             return View();
         }
 
@@ -59,14 +60,15 @@ namespace PrjTutor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AssignmentId,Title,DueDate,Type,Weight,Grade,StudentId")] Assignment assignment)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(assignment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", assignment.StudentId);
-            return View(assignment);
+            //if (ModelState.IsValid)
+            //{
+            _context.Add(assignment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            //}
+
+            //ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", assignment.StudentId);
+            //return View(assignment);
         }
 
         // GET: Assignment/Edit/5
@@ -82,7 +84,7 @@ namespace PrjTutor.Controllers
             {
                 return NotFound();
             }
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", assignment.StudentId);
+            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name", assignment.StudentId);
             return View(assignment);
         }
 
