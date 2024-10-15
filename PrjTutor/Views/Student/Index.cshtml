@@ -17,15 +17,18 @@
 </div>
 
 
-<div class="container gap-3 d-flex w-full vh-75">
+<div class="gap-3 d-flex w-full vh-75">
 
     @foreach (var student in Model) {
         <div class="card w-25 shadow-lg rounded-md" >
             <div class="card-body">
                 <p class="card-title fw-bold">
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-primary rounded-pill text-decoration-none text-white" asp-action="Details" asp-route-id="@student.StudentId">
-                            @Html.DisplayFor(modelItem => student.Name)
+                        <a class="d-flex rounded-pill text-decoration-none" asp-action="Details" asp-route-id="@student.StudentId">
+                            <p class="fs-4 me-2">
+                                @Html.DisplayFor(modelItem => student.Name)
+                            </p>
+                            <p class="fs-6 rounded-pill text-white p-2 bg-primary">Details</p>
                         </a>
                         <a class="my-auto" asp-action="Edit" asp-route-id="@student.StudentId">
                             <i class="bi bi-pencil"></i>
@@ -36,9 +39,9 @@
                     Course: @Html.DisplayFor(modelItem => student.CourseEnrolled)
                 </p>
 
-                <p class="card-link">
-                    <a class="d-flex" asp-controller="Evaluation" asp-action="Create" asp-route-id="@student.StudentId">Evaluate an Assignment</a>
-                    <a asp-controller="Feedback" asp-action="Create" asp-route-id="@student.StudentId">Create Feedback</a>
+                <p class="card-link d-flex gap-3">
+                    <a class="btn btn-primary " asp-controller="Evaluation" asp-action="Create" asp-route-id="@student.StudentId">Evaluate an Assignment</a>
+                    <a class="btn btn-secondary" asp-controller="Feedback" asp-action="Create" asp-route-id="@student.StudentId">Create Feedback</a>
                 </p>
             </div>
         </div>

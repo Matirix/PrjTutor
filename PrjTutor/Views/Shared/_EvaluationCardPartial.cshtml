@@ -1,0 +1,25 @@
+@model IEnumerable<PrjTutor.Evaluation>
+
+
+<section class="gap-3 d-flex mx-3">
+
+
+    @foreach (var evaluation in Model) {
+        var gradeColor = ((Dictionary<int, string>)ViewData["GradeColors"])[evaluation.EvaluationId];
+        <div class="p-3 shadow rounded-lg card" style="height: 20vh;">
+            <div style="" class="body">
+                <p class="card-title fw-bold text-truncate">@evaluation.Assignment.Title</p>
+                <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width:@evaluation.Grade%; background:@gradeColor;" aria-valuenow="@evaluation.Grade" aria-valuemin="0" aria-valuemax="100">
+                    @evaluation.Grade%
+                </div>               
+                     </div>
+
+                <hr/>
+                <p class="card-text text-truncate">@evaluation.Notes</p>
+            </div>
+
+
+        </div>
+    }
+</section>

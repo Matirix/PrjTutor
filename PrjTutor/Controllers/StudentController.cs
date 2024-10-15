@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrjTutor;
 using PrjTutor.Data;
+using PrjTutor.Helpers;
 
 namespace PrjTutor.Controllers
 {
@@ -40,11 +41,13 @@ namespace PrjTutor.Controllers
                 .ThenInclude(e=> e.Assignment)
                 .Include(f => f.Feedbacks)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
+            
             if (student == null)
             {
                 return NotFound();
             }
-
+            
+            ViewData["GradeColors"] = GradeHelper.GetGradeColorForCollection(student.Evaluations);
             return View(student);
         }
 

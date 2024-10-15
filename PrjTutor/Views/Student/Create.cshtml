@@ -4,44 +4,44 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Student</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-4 m-auto gap-4">
+    <h1>Enroll a nNw Student</h1>
+        <form asp-action="Create" class="">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EnrollmentDate" class="control-label"></label>
-                <input asp-for="EnrollmentDate" class="form-control" />
-                <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WithdrawalDate" class="control-label"></label>
-                <input asp-for="WithdrawalDate" class="form-control" />
-                <span asp-validation-for="WithdrawalDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CourseEnrolled" class="control-label"></label>
+            <div class="my-2 form-group">
+                <label asp-for="CourseEnrolled" class="control-label">Course</label>
                 <input asp-for="CourseEnrolled" class="form-control" />
                 <span asp-validation-for="CourseEnrolled" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="my-2 d-flex gap-3">
+
+                <div class="form-group">
+                    <label asp-for="EnrollmentDate" class="control-label">Enrollment Date</label>
+                    <input asp-for="EnrollmentDate" class="form-control" />
+                    <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WithdrawalDate" class="control-label">Ending Date Optional</label>
+                    <input asp-for="WithdrawalDate" class="form-control" />
+                    <span asp-validation-for="WithdrawalDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group ">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
