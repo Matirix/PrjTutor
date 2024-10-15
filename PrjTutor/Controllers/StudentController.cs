@@ -36,6 +36,8 @@ namespace PrjTutor.Controllers
             }
 
             var student = await _context.Student
+                .Include(s => s.Evaluations)
+                .ThenInclude(e=> e.Assignment)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
@@ -127,7 +129,7 @@ namespace PrjTutor.Controllers
             }
 
             var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.StudentId == id);
+            .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
                 return NotFound();

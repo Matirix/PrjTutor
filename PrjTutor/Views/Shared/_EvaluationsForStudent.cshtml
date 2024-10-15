@@ -1,0 +1,21 @@
+@model IEnumerable<PrjTutor.Evaluation>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Grade</th>
+            <th>Assignment</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evaluation in Model)
+        {
+            <tr>
+                <td>@evaluation.Assignment.Title</td>
+                <td>@evaluation.Grade</td>
+                <td>@evaluation.Notes</td>
+            </tr>
+        }
+    </tbody>
+</table>
