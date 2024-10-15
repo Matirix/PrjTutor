@@ -6,6 +6,7 @@ namespace PrjTutor
         public int EvaluationId {get;set;}
 
         public double Grade { get; set; } // Grade received for this assignment
+        public string Notes {get; set;}
 
         // Relationship
         public int StudentId { get; set; }
