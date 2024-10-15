@@ -10,7 +10,7 @@ namespace PrjTutor
         public required string CourseEnrolled { get; set; }
 
         // Relationships
-        public ICollection<Assignment> Assignments { get; set; } = new List<Assignment>();
+        public ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
         public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
         public Student()

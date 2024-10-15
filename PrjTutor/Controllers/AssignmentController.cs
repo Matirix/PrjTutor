@@ -17,14 +17,14 @@ namespace PrjTutor.Controllers
         public AssignmentController(ApplicationDbContext context)
         {
             _context = context;
-            
         }
 
         // GET: Assignment
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Assignment.Include(a => a.Student);
-            return View(await applicationDbContext.ToListAsync());
+              return _context.Assignment != null ? 
+                          View(await _context.Assignment.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Assignment'  is null.");
         }
 
         // GET: Assignment/Details/5
@@ -36,7 +36,6 @@ namespace PrjTutor.Controllers
             }
 
             var assignment = await _context.Assignment
-                .Include(a => a.Student)
                 .FirstOrDefaultAsync(m => m.AssignmentId == id);
             if (assignment == null)
             {
@@ -47,29 +46,38 @@ namespace PrjTutor.Controllers
         }
 
         // GET: Assignment/Create
-        public IActionResult Create(int id )
+        public IActionResult Create()
         {
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name", id);
+            var assignmentTypes = Enum.GetValues(typeof(AssignmentType));
+            var assignmentTypeList = new List<SelectListItem>();
+            
+            foreach (AssignmentType type in assignmentTypes)
+            {
+                assignmentTypeList.Add(new SelectListItem
+                {
+                    Value = type.ToString(),
+                    Text = type.ToString() // or you can format the string as needed
+                });
+            }
+            ViewData["AssignmentTypes"] = assignmentTypeList;
+            
             return View();
         }
-
 
         // POST: Assignment/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AssignmentId,Title,DueDate,Type,Weight,Grade,StudentId")] Assignment assignment)
+        public async Task<IActionResult> Create([Bind("AssignmentId,Title,DueDate,Type")] Assignment assignment)
         {
-            //if (ModelState.IsValid)
-            //{
-            _context.Add(assignment);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-            //}
-
-            //ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", assignment.StudentId);
-            //return View(assignment);
+            if (ModelState.IsValid)
+            {
+                _context.Add(assignment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(assignment);
         }
 
         // GET: Assignment/Edit/5
@@ -85,7 +93,6 @@ namespace PrjTutor.Controllers
             {
                 return NotFound();
             }
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name", assignment.StudentId);
             return View(assignment);
         }
 
@@ -94,7 +101,7 @@ namespace PrjTutor.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AssignmentId,Title,DueDate,Type,Weight,Grade,StudentId")] Assignment assignment)
+        public async Task<IActionResult> Edit(int id, [Bind("AssignmentId,Title,DueDate,Type")] Assignment assignment)
         {
             if (id != assignment.AssignmentId)
             {
@@ -121,7 +128,6 @@ namespace PrjTutor.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", assignment.StudentId);
             return View(assignment);
         }
 
@@ -134,7 +140,6 @@ namespace PrjTutor.Controllers
             }
 
             var assignment = await _context.Assignment
-                .Include(a => a.Student)
                 .FirstOrDefaultAsync(m => m.AssignmentId == id);
             if (assignment == null)
             {
