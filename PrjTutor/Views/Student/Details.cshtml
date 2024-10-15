@@ -37,6 +37,8 @@
         </dd>
     </dl>
     @await Html.PartialAsync("_EvaluationsForStudent", Model.Evaluations)
+    <h1>Feedback</h1>
+    @await Html.PartialAsync("_FeedBackPartial", Model.Feedbacks)
 
 </div>
 <div id="student-evaluations"></div>

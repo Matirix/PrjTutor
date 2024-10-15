@@ -1,0 +1,25 @@
+@model IEnumerable<PrjTutor.Feedback>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>WeekEnding</th>
+            <th>LearningObjective</th>
+            <th>Performance</th>
+            <th>Strength</th>
+            <th>Weakness</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var feedback in Model)
+        {
+            <tr>
+                <td>@feedback.WeekEnding</td>
+                <td>@feedback.LearningObjective</td>
+                <td>@feedback.Performance</td>
+                <td>@feedback.Strength</td>
+                <td>@feedback.Weakness</td>
+            </tr>
+        }
+    </tbody>
+</table>
