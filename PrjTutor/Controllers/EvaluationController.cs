@@ -46,13 +46,20 @@ namespace PrjTutor.Controllers
             return View(evaluation);
         }
 
-        // GET: Evaluation/Create
+        // GET: Evaluation/Create/
         public IActionResult Create()
         {
-            ViewData["AssignmentId"] = new SelectList(_context.Assignment, "AssignmentId", "AssignmentId");
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId");
+            // Log the received student ID for debugging
+            Console.WriteLine("Student ID: " + RouteData.Values["id"]);
+
+
+            // Populate dropdowns
+            ViewData["AssignmentId"] = new SelectList(_context.Assignment, "AssignmentId", "Title");
+            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name", RouteData.Values["id"]); // Pre-select if id is provided
+
             return View();
         }
+
 
         // POST: Evaluation/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -61,12 +68,12 @@ namespace PrjTutor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EvaluationId,Title,Grade,StudentId,AssignmentId")] Evaluation evaluation)
         {
-            if (ModelState.IsValid)
-            {
+            // if (ModelState.IsValid)
+            // {
                 _context.Add(evaluation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            // }
             ViewData["AssignmentId"] = new SelectList(_context.Assignment, "AssignmentId", "AssignmentId", evaluation.AssignmentId);
             ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", evaluation.StudentId);
             return View(evaluation);
