@@ -6,48 +6,42 @@
 
 <h1>Students View</h1>
 
-<p>
-    <a asp-action="Create">Add a New Student</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnrollmentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WithdrawalDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseEnrolled)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WithdrawalDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseEnrolled)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<a class="m-3 btn btn-primary" asp-action="Create">Add a New Student</a>
+<button class=" btn btn-secondary  type="button" data-bs-toggle="collapse" data-bs-target="#studentTable" aria-expanded="false" aria-controls="studentTable">
+    <i class="bi bi-table"></i> Table View
+</button>
+
+<div class="collapse" id="studentTable">
+    <partial name="_StudentTable"/>
+</div>
+
+
+<div class="container gap-3 d-flex w-full vh-75">
+
+    @foreach (var student in Model) {
+        <div class="card w-25 border-primary" >
+            <div class="card-body">
+                <p class="card-title fw-bold">
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-primary rounded-pill text-decoration-none text-white" asp-action="Details" asp-route-id="@student.StudentId">
+                            @Html.DisplayFor(modelItem => student.Name)
+                        </a>
+                        <a class="my-auto" asp-action="Edit" asp-route-id="@student.StudentId">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </div>
+                </p>
+                <p class="card-subtitle">
+                    @Html.DisplayFor(modelItem => student.CourseEnrolled)
+                </p>
+
+                <p class="card-link">
+                    <a class="d-flex" asp-controller="Assignment" asp-action="Create" asp-route-id="@student.StudentId">Evaluate an Assignment</a>
+                    <a asp-controller="Feedback" asp-action="Create" asp-route-id="@student.StudentId">Create Feedback</a>
+                </p>
+            </div>
+        </div>
+    }
+</div>
+

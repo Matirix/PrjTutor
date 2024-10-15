@@ -47,11 +47,12 @@ namespace PrjTutor.Controllers
         }
 
         // GET: Assignment/Create
-        public IActionResult Create()
+        public IActionResult Create(int id )
         {
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name");
+            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name", id);
             return View();
         }
+
 
         // POST: Assignment/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
