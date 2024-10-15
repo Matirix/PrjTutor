@@ -48,7 +48,7 @@ namespace PrjTutor.Controllers
         // GET: Feedback/Create
         public IActionResult Create()
         {
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId");
+            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "Name", RouteData.Values["id"]);
             return View();
         }
 
@@ -59,14 +59,14 @@ namespace PrjTutor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FeedbackId,WeekEnding,Strength,Weakness,Performance,LearningObjective,StudentId")] Feedback feedback)
         {
-            if (ModelState.IsValid)
-            {
+            // if (ModelState.IsValid)
+            // {
                 _context.Add(feedback);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", feedback.StudentId);
-            return View(feedback);
+            // }
+            // ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", feedback.StudentId);
+            // return View(feedback);
         }
 
         // GET: Feedback/Edit/5
