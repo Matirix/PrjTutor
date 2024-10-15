@@ -4,7 +4,6 @@ namespace PrjTutor
     public class Evaluation
     {
         public int EvaluationId {get;set;}
-        public required string Title { get; set; }
 
         public double Grade { get; set; } // Grade received for this assignment
 

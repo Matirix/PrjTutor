@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Students View</h1>
+<h1 class="text-center">Students</h1>
 
 
 <a class="m-3 btn btn-primary" asp-action="Create">Add a New Student</a>
@@ -20,7 +20,7 @@
 <div class="container gap-3 d-flex w-full vh-75">
 
     @foreach (var student in Model) {
-        <div class="card w-25 border-primary" >
+        <div class="card w-25 shadow-lg rounded-md" >
             <div class="card-body">
                 <p class="card-title fw-bold">
                     <div class="d-flex justify-content-between">
@@ -33,7 +33,7 @@
                     </div>
                 </p>
                 <p class="card-subtitle">
-                    @Html.DisplayFor(modelItem => student.CourseEnrolled)
+                    Course: @Html.DisplayFor(modelItem => student.CourseEnrolled)
                 </p>
 
                 <p class="card-link">
