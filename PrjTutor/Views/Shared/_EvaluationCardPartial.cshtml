@@ -1,12 +1,14 @@
 @model IEnumerable<PrjTutor.Evaluation>
 
 
-<section class="gap-3 d-flex mx-3">
+<section class="container ">
+    <h2>Evaluations</h2>
 
+    <div class="d-flex gap-3 p-1 overflow-scroll">
 
     @foreach (var evaluation in Model) {
         var gradeColor = ((Dictionary<int, string>)ViewData["GradeColors"])[evaluation.EvaluationId];
-        <div class="p-3 shadow rounded-lg card" style="height: 20vh;">
+        <div class="p-3 shadow-sm rounded-lg card" style="height: 20vh;">
             <div style="" class="body">
                 <p class="card-title fw-bold text-truncate">@evaluation.Assignment.Title</p>
                 <div class="progress">
@@ -22,4 +24,5 @@
 
         </div>
     }
+    </div>
 </section>

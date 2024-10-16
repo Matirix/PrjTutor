@@ -5,39 +5,50 @@
 }
 
 
-<div>
+<div class="">
     <h4 class="text-center">
         @Html.DisplayFor(model => model.Name)
     </h4>
-    <div class="container d-flex">
-        <dl class=" border shadow p-3 rounded-3 flex-column w-25">
-            <dt class = "">
-                Enrolled:
-            </dt>
-            <dd class = "">
-                @Html.DisplayFor(model => model.EnrollmentDate)
-            </dd>
-            <dt class = "">
-                Withdrawn:
-            </dt>
-            <dd class = "">
-                @Html.DisplayFor(model => model.WithdrawalDate)
-            </dd>
-            <dt class = "">
-                Course:
-            </dt>
-            <dd class = "">
-                @Html.DisplayFor(model => model.CourseEnrolled)
-            </dd>
-        </dl>
+    <hr>
+    <hr>
+    <section id="row" class="d-flex">
 
+    <div class="container" id="Course Enrollment and Withdrawal Information">
+        <h2>
+            Status
+        </h2>
+
+        <div class="d-flex">
+            <dl class=" border shadow p-3 rounded-3 flex-column w-75 ">
+                <dt class = "">
+                    Enrolled:
+                </dt>
+                <dd class = "">
+                    @Html.DisplayFor(model => model.EnrollmentDate)
+                </dd>
+                <dt class = "">
+                    Withdrawn:
+                </dt>
+                <dd class = "">
+                    @Html.DisplayFor(model => model.WithdrawalDate)
+                </dd>
+                <dt class = "">
+                    Course:
+                </dt>
+                <dd class = "">
+                    @Html.DisplayFor(model => model.CourseEnrolled)
+                </dd>
+            </dl>
+        </div>
     </div>
     @await Html.PartialAsync("_EvaluationCardPartial", Model.Evaluations)
+    </section>
+
 
     
-    @await Html.PartialAsync("_EvaluationsForStudent", Model.Evaluations)
+    @* @await Html.PartialAsync("_EvaluationsForStudent", Model.Evaluations)
     <h1>Feedback</h1>
-    @await Html.PartialAsync("_FeedBackPartial", Model.Feedbacks)
+    @await Html.PartialAsync("_FeedBackPartial", Model.Feedbacks) *@
 
 </div>
 <div id="student-evaluations"></div>
