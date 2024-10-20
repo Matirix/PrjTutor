@@ -29,14 +29,37 @@
                         @Html.DisplayFor(modelItem => assignment.Title)
                     </p>
                     <p class="text-sm">
-                        @Html.DisplayFor(modelItem => assignment.DueDate)
+                        @assignment.DueDate.ToString("MM/dd/yyyy")
                     </p>
                 </div>
                 <div class="card-subtitle fw-lighter">
                     @Html.DisplayFor(modelItem => assignment.Type)
                 </div>
-                <div class="card-text">
+                <div class="card-text mt-1 gap-2">
                     <a class="btn btn-secondary"  asp-action="Details" asp-route-id="@assignment.AssignmentId">Details</a>
+                    <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#classList"> <i class="bi bi-table me-1"></i>View grades</button>
+                    <div>
+                        @ViewData["AverageGrades"]
+                    </div>
+                        <table id="classList" class="table table-striped">
+                            <tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                            @foreach (var evaluation in assignment.Evaluations) {
+                                    
+                                    <tr>
+                                        <td>@evaluation.Student.Name</td>
+                                        <td>@evaluation.Grade</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
                 </div>
                 
 

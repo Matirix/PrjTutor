@@ -22,9 +22,23 @@ namespace PrjTutor.Controllers
         // GET: Assignment
         public async Task<IActionResult> Index()
         {
-              return _context.Assignment != null ? 
-                          View(await _context.Assignment.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Assignment'  is null.");
+            var assignments = await _context.Assignment
+                .Include(a => a.Evaluations) // Include Evaluations
+                .ThenInclude(e => e.Student) // Include related Students
+                .ToListAsync();
+
+            // Calculate the average grade for each assignment
+            var averageGrades = assignments.ToDictionary(
+                assignment => assignment.AssignmentId,
+                assignment => assignment.Evaluations.Any() 
+                    ? assignment.Evaluations.Average(e => e.Grade) 
+                    : 0 // If no evaluations, set average grade to 0
+            );
+
+            // Store the average grades in ViewData
+            ViewData["AverageGrades"] = averageGrades;
+
+            return View(assignments);
         }
 
         // GET: Assignment/Details/5
