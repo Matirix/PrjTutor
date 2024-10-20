@@ -4,44 +4,47 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Assignments</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AssignmentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AssignmentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AssignmentId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="d-flex flex-row gap-2 my-2">
+    <div class="btn btn-primary">
+        <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
+    </div>
+    <button class=" btn btn-secondary  type="button" data-bs-toggle="collapse" data-bs-target="#assignmentTable" aria-expanded="false" aria-controls="assignmentTable">
+        <i class="bi bi-table"></i> Table View
+    </button>
+</div>
+
+<div class="collapse" id="assignmentTable">
+    <partial name="_AssignmentTable"/>
+</div>
+
+<div class="gap-3 d-flex w-full vh-75">
+    @foreach (var assignment in Model) {
+        <div class="card w-25 shadow-lg rounded-md">
+            <div class="card-body">
+                <div class="d-flex card-title justify-content-between">
+                    <p class="text-sm fw-bold">
+
+                        @Html.DisplayFor(modelItem => assignment.Title)
+                    </p>
+                    <p class="text-sm">
+                        @Html.DisplayFor(modelItem => assignment.DueDate)
+                    </p>
+                </div>
+                <div class="card-subtitle fw-lighter">
+                    @Html.DisplayFor(modelItem => assignment.Type)
+                </div>
+                <div class="card-text">
+                    <a class="btn btn-secondary"  asp-action="Details" asp-route-id="@assignment.AssignmentId">Details</a>
+                </div>
+                
+
+            </div>
+
+        </div>
+    }
+    
+</div>
+
+
