@@ -27,16 +27,7 @@ namespace PrjTutor.Controllers
                 .ThenInclude(e => e.Student) // Include related Students
                 .ToListAsync();
 
-            // Calculate the average grade for each assignment
-            var averageGrades = assignments.ToDictionary(
-                assignment => assignment.AssignmentId,
-                assignment => assignment.Evaluations.Any() 
-                    ? assignment.Evaluations.Average(e => e.Grade) 
-                    : 0 // If no evaluations, set average grade to 0
-            );
-
-            // Store the average grades in ViewData
-            ViewData["AverageGrades"] = averageGrades;
+            // ViewData["AverageGrades"] = averageGrades;
 
             return View(assignments);
         }

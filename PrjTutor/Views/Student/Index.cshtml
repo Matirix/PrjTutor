@@ -7,7 +7,7 @@
 <h1 class="text-center">Students</h1>
 
 
-<a class="m-3 btn btn-primary" asp-action="Create">Add a New Student</a>
+<a class="my-3 btn btn-primary" asp-action="Create">Add a New Student</a>
 <button class=" btn btn-secondary  type="button" data-bs-toggle="collapse" data-bs-target="#studentTable" aria-expanded="false" aria-controls="studentTable">
     <i class="bi bi-table"></i> Table View
 </button>
@@ -17,14 +17,14 @@
 </div>
 
 
-<div class="gap-3 d-flex w-full vh-75">
+<div class="gap-3 d-flex justify-content-center flex-wrap w-full vh-75">
 
     @foreach (var student in Model) {
         <div class="card w-25 shadow-lg rounded-md" >
             <div class="card-body">
                 <p class="card-title fw-bold">
                     <div class="d-flex justify-content-between">
-                        <a class="d-flex rounded-pill text-decoration-none" asp-action="Details" asp-route-id="@student.StudentId">
+                        <a class="d-flex flex-row my-auto rounded-pill text-decoration-none" asp-action="Details" asp-route-id="@student.StudentId">
                             <p class="fs-4 me-2">
                                 @Html.DisplayFor(modelItem => student.Name)
                             </p>
@@ -40,8 +40,8 @@
                 </p>
 
                 <p class="card-link d-flex gap-3">
-                    <a class="btn btn-primary " asp-controller="Evaluation" asp-action="Create" asp-route-id="@student.StudentId">Evaluate an Assignment</a>
-                    <a class="btn btn-secondary" asp-controller="Feedback" asp-action="Create" asp-route-id="@student.StudentId">Create Feedback</a>
+                    <a class="container btn btn-primary " asp-controller="Evaluation" asp-action="Create" asp-route-id="@student.StudentId">Evaluate an Assignment</a>
+                    <a class="container btn btn-secondary" asp-controller="Feedback" asp-action="Create" asp-route-id="@student.StudentId">Create Feedback</a>
                 </p>
             </div>
         </div>

@@ -7,9 +7,8 @@
 <h1 class="text-center">Assignments</h1>
 
 <div class="d-flex flex-row gap-2 my-2">
-    <div class="btn btn-primary">
-        <a class="text-white text-decoration-none" asp-action="Create">Create New</a>
-    </div>
+    <a class="btn btn-primary text-white text-decoration-none" asp-action="Create">Create New Assignment</a>
+    <a class="btn btn-primary text-white text-decoration-none" asp-controller="Evaluation" asp-action="Create">Evaluate a student</a>
     <button class=" btn btn-secondary  type="button" data-bs-toggle="collapse" data-bs-target="#assignmentTable" aria-expanded="false" aria-controls="assignmentTable">
         <i class="bi bi-table"></i> Table View
     </button>
@@ -39,7 +38,7 @@
                     <a class="btn btn-secondary"  asp-action="Details" asp-route-id="@assignment.AssignmentId">Details</a>
                     <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#classList"> <i class="bi bi-table me-1"></i>View grades</button>
                     <div>
-                        @ViewData["AverageGrades"]
+                        
                     </div>
                         <table id="classList" class="table table-striped">
                             <tbody>
