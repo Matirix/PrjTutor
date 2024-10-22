@@ -63,7 +63,8 @@ namespace PrjTutor.Controllers
             // {
                 _context.Add(feedback);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Feedback has been successfully created!";
+                return View();
             // }
             // ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", feedback.StudentId);
             // return View(feedback);

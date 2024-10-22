@@ -4,10 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Feedback</h4>
 <hr />
 <div class="row">
-    <div class="gap-4 container">
+    <div class="gap-4 container m-auto w-50">
+        <h4>Feedback</h4>   
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="d-flex gap-3 ">
@@ -49,13 +49,20 @@
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-secondary"asp-action="Index">Back to List</a>
             </div>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="my-1 alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
