@@ -1,5 +1,5 @@
 ﻿@{
-    string controller = ViewContext.RouteData.Values["controller"].ToString();
+    string controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? " ";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -43,8 +43,8 @@
                             <a class="nav-link  @(controller == "Assignment" ? "active text-secondary rounded-lg": "text-dark")" asp-area="" asp-controller="Assignment"
                                 asp-action="Index">Assignments</a>
                         </li>
-                        <partial name="_LoginPartial" />
                     </ul>
+                        <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
