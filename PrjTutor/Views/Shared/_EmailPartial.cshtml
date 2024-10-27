@@ -5,7 +5,10 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <span>@User.Identity?.Name!</span>
+    if (User.IsInRole("TUTOR")) {
+        <span>Tutor</span>
+    }
+    <span>@User.IsInRole("TUTOR")</span>
     @* <li class="nav">
         
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
