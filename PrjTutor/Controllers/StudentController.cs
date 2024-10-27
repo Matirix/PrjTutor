@@ -2,30 +2,46 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrjTutor;
 using PrjTutor.Data;
 using PrjTutor.Helpers;
+using PrjTutor.Models;
 
 namespace PrjTutor.Controllers
 {
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UserManager<ApplicationUser> _userManager;
 
-        public StudentController(ApplicationDbContext context)
+        public StudentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Student
         public async Task<IActionResult> Index()
         {
-              return _context.Student != null ? 
-                          View(await _context.Student.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Student'  is null.");
+
+            var currentUser = await _userManager.GetUserAsync(User);
+
+
+            if (_context.Student == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Student' is null.");
+            }
+
+
+            var students = currentUser != null 
+                ? await _context.Student.Where(s => s.UserId == currentUser.Id).ToListAsync() 
+                : new List<Student>();
+
+            return View(students);
         }
 
         // GET: Student/Details/5
@@ -64,13 +80,17 @@ namespace PrjTutor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StudentId,Name,EnrollmentDate,WithdrawalDate,CourseEnrolled")] Student student)
         {
-            if (ModelState.IsValid)
-            {
+            // if (ModelState.IsValid)
+            // {
+                var currentUser = await _userManager.GetUserAsync(User);
+                student.UserId = currentUser!.Id;
+
+
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(student);
+            // }
+            // return View(student);
         }
 
         // GET: Student/Edit/5

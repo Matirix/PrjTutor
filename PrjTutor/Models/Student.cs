@@ -1,4 +1,5 @@
 ﻿using System;
+using PrjTutor.Models;
 namespace PrjTutor
 {
     public class Student
@@ -12,6 +13,12 @@ namespace PrjTutor
         // Relationships
         public ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
         public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+                
+        // Foreign key for the tutor
+        public string UserId { get; set; }
+        
+        // Navigation property
+        public ApplicationUser User { get; set; }
 
         public Student()
         {

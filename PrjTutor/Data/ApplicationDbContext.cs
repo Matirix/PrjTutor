@@ -34,5 +34,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<PrjTutor.Assignment> Assignment { get; set; } = default!;
     public DbSet<PrjTutor.Feedback> Feedback { get; set; } = default!;
     public DbSet<PrjTutor.Evaluation> Evaluation { get; set; } = default!;
+    
 }
 
