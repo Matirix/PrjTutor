@@ -2,28 +2,25 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
 {
-    if (User.IsInRole("TUTOR")) {
-        <span>Tutor</span>
+    var currentUser = await UserManager.GetUserAsync(User);
+    if (currentUser != null)
+    {
+            <span>
+                @if (User.IsInRole("tutor")) {
+                    <span>Tutor</span>
+                } else {
+                    <span>Admin</span>
+                }
+                 @currentUser.FirstName
+            </span>
+
     }
-    <span>@User.IsInRole("TUTOR")</span>
-    @* <li class="nav">
-        
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li> *@
 }
 else
 {
     <div>
-
     </div>
 }
-</ul>
-
