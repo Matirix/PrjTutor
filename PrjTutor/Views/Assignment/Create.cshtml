@@ -1,9 +1,5 @@
 @model PrjTutor.Assignment
 
-@{
-    ViewData["Title"] = "Create";
-}
-
 <h1>Create</h1>
 
 <h4>Assignment</h4>
@@ -23,14 +19,13 @@
                 <span asp-validation-for="DueDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-         <label asp-for="Type" class="control-label"></label>
-             @Html.DropDownListFor(
-                model => model.Type, 
-                (IEnumerable<SelectListItem>)ViewData["AssignmentTypes"], 
-                "Select Assignment Type",
-                new { @class = "form-control" } 
-            )
+         <label asp-for="Type" class="control-label">What kind of material is it?</label>
+                @Html.DropDownListFor(
+                    model => model.Type, 
+                    (IEnumerable<SelectListItem>)ViewData["AssignmentTypes"], 
+                    "Select Assignment Type",
+                    new { @class = "form-control" } 
+                )
             <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">

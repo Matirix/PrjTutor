@@ -2,27 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrjTutor;
 using PrjTutor.Data;
+using PrjTutor.Models;
 
 namespace PrjTutor.Controllers
 {
     public class EvaluationController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EvaluationController(ApplicationDbContext context)
+        public EvaluationController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: Evaluation
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Evaluation.Include(e => e.Assignment).Include(e => e.Student);
+            var currentUser = _userManager.GetUserAsync(User);
+            var applicationDbContext = _context
+            .Evaluation
+            .Where(e => e.UserId == currentUser.Id.ToString())
+            .Include(e => e.Assignment)
+            .Include(e => e.Student);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -70,9 +80,11 @@ namespace PrjTutor.Controllers
         {
             // if (ModelState.IsValid)
             // {
-                _context.Add(evaluation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            var currentUser = await _userManager.GetUserAsync(User);
+            evaluation.UserId = currentUser!.Id;
+            _context.Add(evaluation);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
             // }
             ViewData["AssignmentId"] = new SelectList(_context.Assignment, "AssignmentId", "AssignmentId", evaluation.AssignmentId);
             ViewData["StudentId"] = new SelectList(_context.Student, "StudentId", "StudentId", evaluation.StudentId);

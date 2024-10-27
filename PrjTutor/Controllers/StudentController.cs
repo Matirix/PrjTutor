@@ -16,7 +16,7 @@ namespace PrjTutor.Controllers
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public StudentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
