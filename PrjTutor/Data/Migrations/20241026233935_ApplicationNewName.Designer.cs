@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrjTutor.Data;
 
@@ -10,9 +11,11 @@ using PrjTutor.Data;
 namespace PrjTutor.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026233935_ApplicationNewName")]
+    partial class ApplicationNewName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.20");
@@ -45,15 +48,14 @@ namespace PrjTutor.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "56ce8b42-f85e-4abc-a288-391e4cc9b30d",
+                            Id = "abf5b5bb-36f7-4204-8266-a70ad4b571b5",
                             Name = "admin",
-                            NormalizedName = "ADMIN"
+                            NormalizedName = "tutor"
                         },
                         new
                         {
-                            Id = "0a74449a-1337-4135-a455-1221e95f1070",
-                            Name = "tutor",
-                            NormalizedName = "TUTOR"
+                            Id = "18622be7-ccb2-4d59-b7c7-d6018bf85d78",
+                            Name = "tutor"
                         });
                 });
 

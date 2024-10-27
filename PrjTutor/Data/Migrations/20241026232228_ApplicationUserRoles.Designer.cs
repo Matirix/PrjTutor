@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrjTutor.Data;
 
@@ -10,9 +11,11 @@ using PrjTutor.Data;
 namespace PrjTutor.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026232228_ApplicationUserRoles")]
+    partial class ApplicationUserRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.20");
@@ -45,15 +48,14 @@ namespace PrjTutor.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "56ce8b42-f85e-4abc-a288-391e4cc9b30d",
+                            Id = "c8e2ea80-0070-4f4a-bffb-5fe3d3aa24fa",
                             Name = "admin",
-                            NormalizedName = "ADMIN"
+                            NormalizedName = "tutor"
                         },
                         new
                         {
-                            Id = "0a74449a-1337-4135-a455-1221e95f1070",
-                            Name = "tutor",
-                            NormalizedName = "TUTOR"
+                            Id = "43ae8775-92b4-4fc5-b56d-fa28f5819c1d",
+                            Name = "tutor"
                         });
                 });
 
@@ -265,14 +267,6 @@ namespace PrjTutor.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
@@ -303,6 +297,7 @@ namespace PrjTutor.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 

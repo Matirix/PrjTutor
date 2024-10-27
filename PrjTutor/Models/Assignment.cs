@@ -3,6 +3,7 @@ namespace PrjTutor
 {
     public class Assignment
     {
+
         public int AssignmentId { get; set; }
         public required string Title { get; set; }
         public DateTime DueDate { get; set; }
